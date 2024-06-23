@@ -1,0 +1,41 @@
+Klasik bir CRM (Customer Relationship Management - Müşteri İlişkileri Yönetimi) uygulaması, bir işletmenin müşteri ilişkilerini ve etkileşimlerini yönetmesine yardımcı olan bir yazılım çözümüdür. İş başvurunuz için size verilen görevi yerine getirirken, bir CRM uygulamasında bulunması gereken temel unsurları ve modülleri içeren bir yapı oluşturmanız gerekecektir. Aşağıda, böyle bir uygulamanın neler içermesi gerektiği ve bu modüllerin nasıl çalıştığına dair bilgiler bulunmaktadır:
+
+*******1. Kullanıcı Yönetimi*********
+Kullanıcı Giriş ve Çıkış İşlemleri: Kullanıcıların sisteme güvenli bir şekilde giriş yapabilmesi ve çıkış yapabilmesi.
+Kullanıcı Rolleri ve Yetkilendirme: Farklı kullanıcı rollerine (yönetici, satış temsilcisi, destek personeli vb.) görev yetkilendirme yapısı.
+
+*********2. Müşteri Yönetimi*********
+Müşteri Profilleri: Müşterilerin temel bilgilerini (isim, adres, iletişim bilgileri vb.) içeren profillerin oluşturulması.
+Müşteri İletişim Geçmişi: Müşterilerle yapılan tüm iletişimlerin (telefon görüşmeleri, e-postalar, toplantılar vb.) kaydedilmesi.
+
+3. Satış Yönetimi
+Satış Fırsatları: Potansiyel satış fırsatlarının takip edilmesi ve yönetilmesi.
+Teklif ve Sipariş Yönetimi: Müşterilere gönderilen teklifler ve alınan siparişlerin yönetilmesi.
+
+4. Takvim ve Etkinlik Yönetimi
+Toplantı Planlama: Kullanıcıların toplantı ve etkinlikleri planlayabilmesi.
+Hatırlatıcılar: Önemli etkinlikler için hatırlatıcılar oluşturulması.
+
+5. Görev Yönetimi
+Görev Atama: Kullanıcılara belirli görevlerin atanması ve bu görevlerin takibi.
+Görev Durumu: Görevlerin tamamlanma durumu ve ilerleyişi hakkında bilgi.
+
+*******6. Mesajlaşma ve İletişim********
+İç Mesajlaşma: Kullanıcılar arasında iç mesajlaşma sistemi (e-posta benzeri) oluşturulması.
+Dış İletişim: Müşterilere e-posta ve diğer iletişim yöntemleri ile ulaşım sağlanması.
+
+7. Raporlama ve Analiz
+Satış Raporları: Satış performansı ve fırsatları hakkında detaylı raporlar.
+Müşteri Raporları: Müşteri etkileşimleri ve memnuniyeti hakkında raporlar.
+
+8. Entegrasyonlar
+Diğer Sistemlerle Entegrasyon: ERP, e-posta servisleri ve diğer iş yazılımları ile entegrasyon.
+Örnek Uygulama Akışı
+Kullanıcı Girişi: Kullanıcı, kendine ait kullanıcı adı ve şifre ile sisteme giriş yapar.
+Müşteri Ekleme: Kullanıcı, yeni bir müşteri profili oluşturur ve müşteri bilgilerini kaydeder.
+Satış Fırsatı Oluşturma: Kullanıcı, yeni bir satış fırsatı ekler ve fırsatın detaylarını girer.
+Toplantı Planlama: Kullanıcı, bir müşteri ile toplantı planlar ve takvimine ekler.
+Görev Atama: Yönetici, bir görev oluşturur ve belirli bir kullanıcıya atar.
+Mesajlaşma: Kullanıcılar, sistem içi mesajlaşma ile birbirleriyle iletişime geçerler.
+Raporlama: Yönetici, satış ve müşteri etkileşimleri ile ilgili raporlar oluşturur ve analiz eder.
+Bu modüller ve iş akışları, CRM uygulamanızın temel yapı taşlarını oluşturacaktır. ASP.NET MVC kullanarak bu modülleri geliştirirken, free front-end template'ler (örneğin Bootstrap) ve JS kütüphaneleri (örneğin jQuery) kullanarak kullanıcı dostu bir arayüz oluşturabilirsiniz.
