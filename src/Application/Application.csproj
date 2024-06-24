@@ -18,11 +18,4 @@
       <PackageReference Include="MediatR" Version="12.3.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Task\Delete\" />
-      <Folder Include="Features\Task\GetAll\" />
-      <Folder Include="Features\Task\GetByUserId\" />
-      <Folder Include="Features\Task\Update\" />
-    </ItemGroup>
-
 </Project>

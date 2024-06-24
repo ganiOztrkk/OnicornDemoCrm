@@ -25,6 +25,14 @@ public class GetMeetingByUserIdQueryHandler(
         if (!roles.Contains("admin") && !roles.Contains("coordinator") && !roles.Contains("manager") && !roles.Contains("salesperson")) 
             return new ErrorDataResult<List<GetMeetingByUserIdQueryResponse>>("Yetkisiz erişim.");
 
+        var getMeetingByUserIdValidator = new GetMeetingByUserIdQueryRequestValidator();
+        var validationResult = await getMeetingByUserIdValidator.ValidateAsync(request, cancellationToken);
+        if (!validationResult.IsValid)
+        {
+            var errors = string.Join(",", validationResult.Errors.Select(x => x.ErrorMessage));
+            return new ErrorDataResult<List<GetMeetingByUserIdQueryResponse>>(errors);
+        }
+
         var meetings = await repository.GetMeetingsByUserIdAsync(request.UserId);
         if (!meetings.Any())
             return new ErrorDataResult<List<GetMeetingByUserIdQueryResponse>>("Toplantı bulunamadı.");

@@ -6,6 +6,8 @@ public class DeleteMeetingCommandRequestValidator : AbstractValidator<DeleteMeet
 {
     public DeleteMeetingCommandRequestValidator()
     {
-        
-    }   
+        RuleFor(x => x.MeetingId)
+            .NotEmpty().WithMessage("Toplantý ID boþ olamaz.")
+            .NotNull().WithMessage("Toplantý ID boþ olamaz.");
+    }
 }

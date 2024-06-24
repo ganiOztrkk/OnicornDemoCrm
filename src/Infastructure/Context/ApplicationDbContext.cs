@@ -20,6 +20,7 @@ public sealed class ApplicationDbContext(DbContextOptions options) : IdentityDbC
     public DbSet<TicketDetail> TicketDetails { get; set; }
     public DbSet<Sale> Sales { get; set; }
     public DbSet<Task> Tasks { get; set; }
+    public DbSet<TaskAttendee> TaskAttendees { get; set; }
     public DbSet<Announcement> Announcements { get; set; }
     
     protected override void OnModelCreating(ModelBuilder builder)
