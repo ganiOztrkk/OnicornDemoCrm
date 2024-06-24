@@ -3468,11 +3468,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Application/Application.csproj",
+      "projectUniqueName": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Application/Application.csproj",
       "projectName": "Application",
-      "projectPath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Application/Application.csproj",
+      "projectPath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Application/Application.csproj",
       "packagesPath": "/Users/gani/.nuget/packages/",
-      "outputPath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Application/obj/",
+      "outputPath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Application/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/gani/.nuget/NuGet/NuGet.Config"
@@ -3487,8 +3487,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Infastructure/Infastructure.csproj": {
-              "projectPath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Infastructure/Infastructure.csproj"
+            "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/Infastructure.csproj": {
+              "projectPath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/Infastructure.csproj"
             }
           }
         }

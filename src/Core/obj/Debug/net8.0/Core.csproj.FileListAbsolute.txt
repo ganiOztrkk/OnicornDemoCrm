@@ -10,3 +10,28 @@
 /Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Core/obj/Debug/net8.0/refint/Core.dll
 /Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.pdb
 /Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Core/obj/Debug/net8.0/ref/Core.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/bin/Debug/net8.0/Core.deps.json
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/bin/Debug/net8.0/Core.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/bin/Debug/net8.0/Core.pdb
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/Core.csproj.AssemblyReference.cache
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/Core.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/Core.AssemblyInfoInputs.cache
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/Core.AssemblyInfo.cs
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/Core.csproj.CoreCompileInputs.cache
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/Core.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/refint/Core.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/Core.pdb
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Core/obj/Debug/net8.0/ref/Core.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/bin/Debug/net8.0/Core.deps.json
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/bin/Debug/net8.0/Core.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/bin/Debug/net8.0/Core.pdb
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.csproj.AssemblyReference.cache
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.AssemblyInfoInputs.cache
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.AssemblyInfo.cs
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.csproj.CoreCompileInputs.cache
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.sourcelink.json
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/refint/Core.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/Core.pdb
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Core/obj/Debug/net8.0/ref/Core.dll

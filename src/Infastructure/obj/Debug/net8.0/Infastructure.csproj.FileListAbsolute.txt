@@ -17,3 +17,42 @@
 /Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.pdb
 /Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.genruntimeconfig.cache
 /Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/ref/Infastructure.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Infastructure.deps.json
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Infastructure.runtimeconfig.json
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Infastructure.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Infastructure.pdb
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Core.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Domain.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Domain.pdb
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/bin/Debug/net8.0/Core.pdb
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.csproj.AssemblyReference.cache
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.AssemblyInfoInputs.cache
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.AssemblyInfo.cs
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.csproj.CoreCompileInputs.cache
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastru.CD45A3C5.Up2Date
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/refint/Infastructure.dll
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.pdb
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/Infastructure.genruntimeconfig.cache
+C:/Users/Gani/Downloads/OnicornDemoCrm-main/OnicornDemoCrm-main/src/Infastructure/obj/Debug/net8.0/ref/Infastructure.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Infastructure.deps.json
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Infastructure.runtimeconfig.json
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Infastructure.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Infastructure.pdb
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Core.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Domain.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Domain.pdb
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/bin/Debug/net8.0/Core.pdb
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.csproj.AssemblyReference.cache
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.AssemblyInfoInputs.cache
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.AssemblyInfo.cs
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.csproj.CoreCompileInputs.cache
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.sourcelink.json
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastru.CD45A3C5.Up2Date
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/refint/Infastructure.dll
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.pdb
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/Infastructure.genruntimeconfig.cache
+/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/obj/Debug/net8.0/ref/Infastructure.dll

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JIwRUoBL5cc76Pdg5LKnhBYtYNgvb4njiJr4FZXNRmBKIbHULUON2BOHmqUkyTQ4Mc2PhxBWnpJiiMeQ6lX5Cw==",
+  "dgSpecHash": "oY9lmnFEyJgU10eRqmAmctCnROeakkgu+lVCjU4P3IceP2bWzCq1SGXRMxiPldSGVSxQ3jtA5wYOV92gguv2lQ==",
   "success": true,
-  "projectFilePath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Mvc/Mvc.csproj",
+  "projectFilePath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Mvc.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

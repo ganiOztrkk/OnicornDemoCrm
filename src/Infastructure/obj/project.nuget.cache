@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1nPAdzZ9muRUT9+XXPa4eNo8e1qxmvi5uaql6P5EQDw59IwQG4x0HWDkHtKLvUx9azO+5nol0Biuiiq+rSf1tg==",
+  "dgSpecHash": "5ee1al2mOefnpolOCtskq911WK2rTk+ErOt+SDVnBVD3/3lh1W1Fqckslub56b+t6R6akGXhyGt6KP8UdvDUIA==",
   "success": true,
-  "projectFilePath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Infastructure/Infastructure.csproj",
+  "projectFilePath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Infastructure/Infastructure.csproj",
   "expectedPackageFiles": [
     "/Users/gani/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/gani/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",

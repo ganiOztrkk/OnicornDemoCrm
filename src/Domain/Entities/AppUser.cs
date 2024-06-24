@@ -10,4 +10,5 @@ public sealed class AppUser : IdentityUser<Guid>, IEntity
     public  bool IsDeleted { get; set; } = false;
     
     public ICollection<MeetingAttendee>? Meetings { get; set; }
+    public ICollection<TaskAttendee>? Tasks { get; set; }
 }

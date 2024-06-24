@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Mvc/Mvc.csproj": {}
+    "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Mvc.csproj": {}
   },
   "projects": {
-    "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Mvc/Mvc.csproj": {
+    "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Mvc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Mvc/Mvc.csproj",
+        "projectUniqueName": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Mvc.csproj",
         "projectName": "Mvc",
-        "projectPath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Mvc/Mvc.csproj",
+        "projectPath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Mvc.csproj",
         "packagesPath": "/Users/gani/.nuget/packages/",
-        "outputPath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/Mvc/obj/",
+        "outputPath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gani/.nuget/NuGet/NuGet.Config"

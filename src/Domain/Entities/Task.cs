@@ -10,4 +10,6 @@ public sealed class Task : IEntity
     public DateTime Deadline { get; set; }
     public bool IsCompleted { get; set; }
     public bool IsDeleted { get; set; } = false;
+
+    public ICollection<TaskAttendee> Attendees { get; set; } = new List<TaskAttendee>();
 }

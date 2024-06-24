@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "34WhP/+b/zqDGkkq9SzWlDXaQUnnhBTc2VHz1D+9To5ktQGjcjk/0KTQODFnwZhPniYJvAO1WOmlIKWrz+Wcmg==",
+  "dgSpecHash": "xYCcrXCzOn/EQGpBZuq1IZOnm0dH6QkwSg/C85UmN9Xt3u2XXCM6NtZXXFNj/Ot44bZ+oM0fMsv4xTouE46r+Q==",
   "success": true,
-  "projectFilePath": "/Users/gani/Desktop/Onicorn Demo CRM Project/OnicornDemoCrm/src/WebApi/WebApi.csproj",
+  "projectFilePath": "/Users/gani/Desktop/Github/OnicornDemoCrm/src/WebApi/WebApi.csproj",
   "expectedPackageFiles": [
     "/Users/gani/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/Users/gani/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
