@@ -1,0 +1,38 @@
+@model Mvc.Services.GetAllCustomerApiResponse?
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>CompanyName</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>ContactPerson</th>
+            <th>Sector</th>
+            <th>ShoppingArea</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model!.Data!)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.CompanyName</td>
+                <td>@item.Address</td>
+                <td>@item.Phone</td>
+                <td>@item.Email</td>
+                <td>@item.ContactPerson</td>
+                <td>@item.Sector</td>
+                <td>@item.ShoppingArea</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

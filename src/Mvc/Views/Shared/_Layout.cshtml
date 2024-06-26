@@ -6,7 +6,6 @@
     <title>@ViewData["Title"] - Mvc</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/Mvc.styles.css" asp-append-version="true"/>
 </head>
 <body>
 <header>
@@ -20,11 +19,23 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Müşteriler</a>
                     </li>
+                    @if (Context.Request.Cookies["AccessToken"] != null)
+                    {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Çıkış</a>
+                    </li>
+                    }
+                    else
+                    {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Giriş</a>
+                    </li>
+                    }
                 </ul>
             </div>
         </div>

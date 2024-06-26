@@ -1,0 +1,36 @@
+@model Mvc.Models.LoginDto
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="col-lg-4 col-md-5 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center">Login</h1>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label>Username or Email</label>
+                        <input asp-for="EmailOrUserName" type="text" name="EmailOrUserName" class="form-control">
+                        <span asp-validation-for="EmailOrUserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label>Password</label>
+                        <input asp-for="Password" type="text" name="Password" class="form-control">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2 text-end">
+                        <button class="btn btn-dark w-100 mb-1">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
