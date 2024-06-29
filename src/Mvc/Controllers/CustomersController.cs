@@ -64,4 +64,34 @@ public class CustomersController(CustomerApiService customerApiService) : Contro
             message = apiResponse.Message
         });
     }
+    
+    [HttpPost]
+    public async Task<IActionResult> Delete([FromBody] GetByIdRequest request)
+    {
+        var apiResponse = await customerApiService.DeleteAsync(request.Id);
+        if (apiResponse!.Success) 
+            return Json(new
+            {
+                success = true,
+                message = apiResponse.Message 
+            });
+
+        ModelState.AddModelError(string.Empty, apiResponse.Message);
+        return Json(new
+        {
+            success = false, 
+            message = apiResponse.Message
+        });
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Update(UpdateCustomerDto updateCustomerDto)
+    {
+        var apiResponse = await customerApiService.UpdateAsync(updateCustomerDto);
+        if (apiResponse!.Success) 
+            return Json(new { success = true, message = apiResponse.Message });
+
+        ModelState.AddModelError(string.Empty, apiResponse.Message);
+        return Json(new { success = false, message = apiResponse.Message });
+    }
 }
