@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews(options =>
     {
         options.Filters.Add(new AuthenticateAttribute());
     })
+    .AddRazorRuntimeCompilation()
     .AddRazorOptions(options =>
     {
         options.ViewLocationFormats.Add("/Pages/{0}.cshtml");

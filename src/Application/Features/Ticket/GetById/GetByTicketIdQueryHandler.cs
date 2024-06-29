@@ -9,7 +9,6 @@ namespace Application.Features.Ticket.GetById;
 
 public class GetByTicketIdQueryHandler(
     ITicketRepository repository,
-    IMapper mapper,
     IHttpContextAccessor httpContextAccessor
     ) : IRequestHandler<GetByTicketIdQueryRequest, IDataResult<Domain.Entities.Ticket>>
 {

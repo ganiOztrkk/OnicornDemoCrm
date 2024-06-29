@@ -15,7 +15,6 @@ public class CreateTicketCommandHandler(
     ITicketRepository repository,
     ITicketDetailRepository ticketDetailRepository,
     IUnitOfWork unitOfWork,
-    IMapper mapper,
     IHttpContextAccessor httpContextAccessor
     ) : IRequestHandler<CreateTicketCommandRequest, IResult>
 {

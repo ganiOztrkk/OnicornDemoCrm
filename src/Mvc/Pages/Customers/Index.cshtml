@@ -1,38 +1,209 @@
-@model Mvc.Services.GetAllCustomerApiResponse?
-
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<div>
-    <table class="table table-bordered">
+@section Scripts {
+    <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/AdminLTE/plugins/jszip/jszip.min.js"></script>
+    <script src="/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+    $(document).ready(function () {
+
+        let table = $('#customerTable').DataTable({
+            ajax: {
+                url: '/Customers/GetAll/',
+                dataSrc: function (json) {
+                    return JSON.parse(json.data);
+                }
+            },
+            columns: [
+                { data: 'Name' },
+                { data: 'CompanyName' },
+                { data: 'Address' },
+                { data: 'Phone' },
+                { data: 'Email' },
+                { data: 'ContactPerson' },
+                { data: 'Sector' },
+                { data: 'ShoppingArea' },
+                {
+                    data: null,
+                    className: "center",
+                    defaultContent: '<button class="btn btn-sm btn-warning editBtn"><i class="fas fa-edit"></i></button> <button class="btn btn-sm btn-danger deleteBtn"><i class="fas fa-trash"></i></button>'
+                }
+            ],
+            order: [[0, 'asc']],
+            paging: true,
+            searching: true,
+            info: true,
+            lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]]
+        });
+
+
+        function reloadTable() {
+            table.ajax.reload();
+        }
+
+
+        $('#saveCustomerBtn').on('click', function () {
+            let formData = $('#addCustomerForm').serialize();
+            $.ajax({
+                url: '/Customers/Create/',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $('#customerModal').modal('hide');
+                        reloadTable();
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error('Beklenmedik bir hata oluştu');
+                }
+            });
+        });
+
+
+        $('#customerTable tbody').on('click', '.editBtn', function () {
+            let customerId = table.row($(this).parents('tr')).data().Id;
+            console.log(customerId);
+            $.ajax({
+                url: '/Customers/GetById/',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: customerId }),
+                success: function (response) {
+                    if (response.success) {
+                        let data = JSON.parse(response.data);
+                        $('#Name').val(data.Name);
+                        $('#CompanyName').val(data.CompanyName);
+                        $('#Address').val(data.Address);
+                        $('#Phone').val(data.Phone);
+                        $('#Email').val(data.Email);
+                        $('#ContactPerson').val(data.ContactPerson);
+                        $('#Sector').val(data.Sector);
+                        $('#ShoppingArea').val(data.ShoppingArea);
+                        $('#saveCustomerBtn').hide();
+                        $('#updateCustomerBtn').show();
+                        $('#customerModalLabel').text("Müşteri Güncelle");
+                        $('#customerModal').modal('show');
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error('Beklenmedik bir hata oluştu');
+                }
+            });
+        });
+
+
+        $('#customerTable tbody').on('click', '.deleteBtn', function () {
+            let data = table.row($(this).parents('tr')).data().Id;
+            // delete işlemleri
+            console.log(data);
+        });
+        
+        $('#addCustomerBtn').on('click', function () {
+            $('#addCustomerForm')[0].reset();
+            $('#updateCustomerBtn').hide();
+            $('#saveCustomerBtn').show();
+            $('#customerModalLabel').text("Müşteri Ekle");
+            $('#customerModal').modal('show');
+        });
+        $('#closeCreateModal').on('click', function () {
+            $('#addCustomerForm')[0].reset();
+            $('#customerModal').modal('hide');
+        });
+    });
+</script>
+}
+
+
+<div class="card-header d-flex justify-content-between">
+    <h3 class="card-title">Müşteri Listesi</h3>
+    <button class="btn btn-primary" id="addCustomerBtn"><i class="fas fa-plus"></i> Müşteri Ekle</button>
+</div>
+<div class="card-body" style="width: 100%">
+    <table id="customerTable" class="table table-striped table-bordered text-center">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>CompanyName</th>
-            <th>Address</th>
-            <th>Phone</th>
+            <th>Ad</th>
+            <th>Şirket Ad</th>
+            <th>Adres</th>
+            <th>Telefon</th>
             <th>Email</th>
-            <th>ContactPerson</th>
-            <th>Sector</th>
-            <th>ShoppingArea</th>
+            <th>İletişim Kişisi</th>
+            <th>Sektör</th>
+            <th>Toptan / Perakende</th>
+            <th>İşlem</th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model!.Data!)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.CompanyName</td>
-                <td>@item.Address</td>
-                <td>@item.Phone</td>
-                <td>@item.Email</td>
-                <td>@item.ContactPerson</td>
-                <td>@item.Sector</td>
-                <td>@item.ShoppingArea</td>
-            </tr>
-        }
         </tbody>
     </table>
+</div>
+<!-- Müşteri Ekleme Modalı -->
+<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customerModalLabel">Müşteri Ekle</h5>
+                <button id="closeCreateModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addCustomerForm">
+                    <div class="form-group">
+                        <label for="Name">Ad</label>
+                        <input type="text" class="form-control" id="Name" name="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="CompanyName">Şirket Ad</label>
+                        <input type="text" class="form-control" id="CompanyName" name="CompanyName">
+                    </div>
+                    <div class="form-group">
+                        <label for="Address">Adres</label>
+                        <input type="text" class="form-control" id="Address" name="Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">Telefon</label>
+                        <input type="text" class="form-control" id="Phone" name="Phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" id="Email" name="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="ContactPerson">İletişim Kişisi</label>
+                        <input type="text" class="form-control" id="ContactPerson" name="ContactPerson">
+                    </div>
+                    <div class="form-group">
+                        <label for="Sector">Sektör</label>
+                        <input type="text" class="form-control" id="Sector" name="Sector">
+                    </div>
+                    <div class="form-group">
+                        <label for="ShoppingArea">Toptan / Perakende</label>
+                        <input type="text" class="form-control" id="ShoppingArea" name="ShoppingArea">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="saveCustomerBtn">Kaydet</button>
+                    <button type="button" class="btn btn-primary" id="updateCustomerBtn">Güncelle</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

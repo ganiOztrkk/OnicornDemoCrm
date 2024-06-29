@@ -4,57 +4,143 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Mvc</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/AdminLTE/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    
+
 </head>
-<body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mvc</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Müşteriler</a>
-                    </li>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <a href="/AdminLTE/index3.html" class="brand-link">
+            <img src="/AdminLTE/dist/img/AdminLTELogo.png"
+                 alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">ONICORNE</span>
+        </a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-center text-center">
+                <div class="info">
+                    @if (Context.Request.Cookies["Role"] == "admin")
+                    {
+                        <span style="color: white">ADMIN</span>
+                    }
+                    @if (Context.Request.Cookies["Role"] == "manager")
+                    {
+                        <span style="color: white">YÖNETİCİ</span>
+                    }
+                    @if (Context.Request.Cookies["Role"] == "coordinator")
+                    {
+                        <span style="color: white">KORDİNATÖR</span>
+                    }
+                    @if (Context.Request.Cookies["Role"] == "salesperson")
+                    {
+                        <span style="color: white">SATIŞ</span>
+                    }
+                    @if (Context.Request.Cookies["Role"] == null)
+                    {
+                        <span style="color: white">--</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     @if (Context.Request.Cookies["AccessToken"] != null)
                     {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Çıkış</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>Ana Sayfa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Customers/Index" class="nav-link">
+                                <i class="nav-icon fas fa-people-arrows"></i>
+                                <p>Müşteriler</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-wallet"></i>
+                                <p>Satışlar</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Auth/Logout" class="nav-link">
+                                <i class="nav-icon fas fa-door-open"></i>
+                                <p>Çıkış Yap</p>
+                            </a>
+                        </li>
                     }
                     else
                     {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Giriş</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="/Auth/Login" class="nav-link">
+                                <i class="nav-icon fas fa-door-closed"></i>
+                                <p>Giriş Yap</p>
+                            </a>
+                        </li>
                     }
                 </ul>
-            </div>
+            </nav>
         </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
+    </aside>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2024 - Mvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="height: 100vh">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-</footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+</div>
+<!-- jQuery -->
+<script src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/jszip/jszip.min.js"></script>
+<script src="/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/AdminLTE/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/AdminLTE/dist/js/demo.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

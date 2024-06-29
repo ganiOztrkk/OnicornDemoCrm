@@ -12,7 +12,6 @@ namespace Application.Features.Ticket.CreateDetailContent;
 
 public class CreateTicketDetailContentCommandHandler(
     ITicketDetailRepository repository,
-    IMapper mapper,
     IHttpContextAccessor httpContextAccessor,
     IUnitOfWork unitOfWork
     ) : IRequestHandler<CreateTicketDetailContentCommandRequest, IResult>

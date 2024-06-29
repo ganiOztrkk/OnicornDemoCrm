@@ -11,7 +11,6 @@ namespace Application.Features.Ticket.GetDetail;
 
 public class GetTicketDetailQueryHandler(
     ITicketDetailRepository repository,
-    IMapper mapper,
     IHttpContextAccessor httpContextAccessor
     ) : IRequestHandler<GetTicketDetailQueryRequest, IDataResult<List<TicketDetail>>>
 {

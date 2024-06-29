@@ -8,7 +8,7 @@ public class AuthApiService(
     IHttpContextAccessor httpContextAccessor,
     IHttpClientFactory httpClientFactory)
 {
-    public async Task<AuthApiResponse?> LoginAsync(LoginDto request)
+    public async Task<ApiDataResponse<string>?> LoginAsync(LoginDto request)
     {
         try
         {
@@ -18,14 +18,14 @@ public class AuthApiService(
             if (!validationResult.IsValid)
             {
                 var errors = validationResult.Errors.Select(x => x.ErrorMessage);
-                return new AuthApiResponse { Success = false, Message = errors.FirstOrDefault()!};
+                return new ApiDataResponse<string> { Success = false, Message = errors.FirstOrDefault()!};
             }
             
             var client = httpClientFactory.CreateClient();
             var response = await client.PostAsJsonAsync("https://localhost:7001/api/Auth/Login", request);
             if (response.IsSuccessStatusCode)
             {
-                var responseBody = await response.Content.ReadFromJsonAsync<AuthApiResponse>();
+                var responseBody = await response.Content.ReadFromJsonAsync<ApiDataResponse<string>>();
                 if (responseBody!.Success)
                 {
                     var cookieOptions = new CookieOptions
@@ -47,19 +47,19 @@ public class AuthApiService(
                     return responseBody;
                 }
                 else
-                    return new AuthApiResponse { Success = false, Message = responseBody.Message };
+                    return new ApiDataResponse<string> { Success = false, Message = responseBody.Message };
             }
             else
             {
                 var errorResponse = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("API Error: " + errorResponse);
-                return new AuthApiResponse { Success = false, Message = "API tarafından hata mesajı alındı." };
+                return new ApiDataResponse<string> { Success = false, Message = "API tarafından hata mesajı alındı." };
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine("Exception in LoginApiService: " + ex.Message);
-            return new AuthApiResponse
+            return new ApiDataResponse<string>
                 { Success = false, Message = "Login işlemi sırasında beklenmedik bir hata oluştu: " + ex.Message };
         }
     }
@@ -87,17 +87,4 @@ public class AuthApiService(
             Console.WriteLine("Exception in LoginApiService: " + ex.Message);
         }
     }
-}
-
-public class AuthApiResponse
-{
-    public string? Data { get; set; }
-    public bool Success { get; set; }
-    public string Message { get; set; } = string.Empty;
-}
-
-public class CookieValues
-{
-    public string AccessToken { get; set; } = string.Empty;
-    public string Role { get; set; } = string.Empty;
 }

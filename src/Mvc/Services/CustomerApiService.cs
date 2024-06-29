@@ -1,4 +1,6 @@
+using System.Text.Json;
 using Mvc.Models;
+using Mvc.Validators;
 
 namespace Mvc.Services;
 
@@ -6,14 +8,14 @@ public class CustomerApiService(
     IHttpContextAccessor httpContextAccessor,
     IHttpClientFactory httpClientFactory)
 {
-    public async Task<GetAllCustomerApiResponse?> GetAllAsync()
+    public async Task<ApiDataResponse<List<GetAllCustomerDto>>?> GetAllAsync()
     {
         var client = httpClientFactory.CreateClient();
         var accessToken = httpContextAccessor.HttpContext!.Request.Cookies["AccessToken"];
-            
+        
         if (accessToken == null)
         {
-            return new GetAllCustomerApiResponse { Success = false, Message = "Tekrar giriş yapınız." };
+            return new ApiDataResponse<List<GetAllCustomerDto>> { Success = false, Message = "Tekrar giriş yapınız." };
         }
         try
         {
@@ -29,33 +31,38 @@ public class CustomerApiService(
 
             if (response.IsSuccessStatusCode)
             {
-                var responseBody = await response.Content.ReadFromJsonAsync<GetAllCustomerApiResponse>();
+                var responseBody = await response.Content.ReadFromJsonAsync<ApiDataResponse<List<GetAllCustomerDto>>>();
                 if (responseBody!.Success)
                     return responseBody;
-                return new GetAllCustomerApiResponse { Data = responseBody.Data, Success = responseBody.Success, Message = responseBody.Message };
+                return new ApiDataResponse<List<GetAllCustomerDto>> { Data = responseBody.Data, Success = responseBody.Success, Message = responseBody.Message };
             }
             else
             {
                 var errorResponse = await response.Content.ReadAsStringAsync();
-                return new GetAllCustomerApiResponse { Success = false, Message = "API Hatası: " + errorResponse };
+                return new ApiDataResponse<List<GetAllCustomerDto>> { Success = false, Message = "API Hatası: " + errorResponse };
             }
         }
         catch (Exception ex)
         {
-            return new GetAllCustomerApiResponse { Success = false, Message = "Exception in CreateVehicleAsync: " + ex.Message };
+            return new ApiDataResponse<List<GetAllCustomerDto>> { Success = false, Message = "Exception in CreateVehicleAsync: " + ex.Message };
         }
     }
 
-    public async Task<CreateCustomerApiResponse?> CreateAsync(CreateCustomerDto createCustomerDto)
+    public async Task<ApiResponse?> CreateAsync(CreateCustomerDto createCustomerDto)
     {
         var client = httpClientFactory.CreateClient();
         var accessToken = httpContextAccessor.HttpContext!.Request.Cookies["AccessToken"];
             
         if (accessToken == null)
+            return new ApiResponse { Success = false, Message = "Tekrar giriş yapınız." };
+        var createCystomerValidator = new CreateCustomerDtoValidator();
+        var validationResult = await createCystomerValidator.ValidateAsync(createCustomerDto);
+        if (!validationResult.IsValid)
         {
-            return new CreateCustomerApiResponse { Success = false, Message = "Tekrar giriş yapınız." };
+            var errors = validationResult.Errors.Select(x => x.ErrorMessage);
+            return new ApiResponse { Success = false, Message = errors.FirstOrDefault()! };
         }
-        
+
         try
         {
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Customers/Create")
@@ -71,30 +78,65 @@ public class CustomerApiService(
 
             if (response.IsSuccessStatusCode)
             {
-                var responseBody = await response.Content.ReadFromJsonAsync<CreateCustomerApiResponse>();
-                return responseBody;
+                var responseBody = await response.Content.ReadFromJsonAsync<ApiResponse>();
+                if (responseBody!.Success)
+                    return responseBody;
+                else
+                    return new ApiResponse { Success = false, Message = responseBody.Message };
             }
             else
             {
                 var errorResponse = await response.Content.ReadAsStringAsync();
-                return new CreateCustomerApiResponse { Success = false, Message = "API Hatası: " + errorResponse };
+                return new ApiResponse { Success = false, Message = "API Hatası: " + errorResponse };
             }
         }
         catch (Exception ex)
         {
-            return new CreateCustomerApiResponse { Success = false, Message = "Müşteri kayıt sırasında hata: " + ex.Message };
+            return new ApiResponse { Success = false, Message = "Müşteri kayıt sırasında hata: " + ex.Message };
         }
     }
-}
-public class GetAllCustomerApiResponse
-{
-    public List<GetAllCustomerDto>? Data { get; set; }
-    public bool Success { get; set; }
-    public string Message { get; set; } = string.Empty;
-}
+    
+    public async Task<ApiDataResponse<GetCustomerByIdDto>?> GetByIdAsync(Guid id)
+    {
+        var client = httpClientFactory.CreateClient();
+        var accessToken = httpContextAccessor.HttpContext!.Request.Cookies["AccessToken"];
+            
+        if (accessToken == null)
+            return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = "Tekrar giriş yapınız." };
+        
+        try
+        {
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Customers/GetById")
+            {
+                Content = new StringContent(
+                    JsonSerializer.Serialize(new { id = id.ToString() }), 
+                    System.Text.Encoding.UTF8, 
+                    "application/json"),
+                Headers =
+                {
+                    { "Authorization", $"Bearer {accessToken}" }
+                }
+            };
 
-public class CreateCustomerApiResponse
-{
-    public bool Success { get; set; }
-    public string Message { get; set; } = string.Empty;
+            var response = await client.SendAsync(httpRequestMessage);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseBody = await response.Content.ReadFromJsonAsync<ApiDataResponse<GetCustomerByIdDto>>();
+                if (responseBody!.Success)
+                    return responseBody;
+                else
+                    return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = responseBody.Message };
+            }
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = "API Hatası: " + errorResponse };
+            }
+        }
+        catch (Exception ex)
+        {
+            return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = "Müşteri kayıt sırasında hata: " + ex.Message };
+        }
+    }
 }
