@@ -1,4 +1,4 @@
-namespace Mvc.Models;
+namespace Mvc.Models.User;
 
 public class CreateUserDto
 {

@@ -1,4 +1,4 @@
-namespace Mvc.Models;
+namespace Mvc.Models.Customer;
 
 public class CreateCustomerDto
 {

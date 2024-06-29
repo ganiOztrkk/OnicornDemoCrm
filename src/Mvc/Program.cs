@@ -7,6 +7,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AuthApiService>();
 builder.Services.AddScoped<CustomerApiService>();
+builder.Services.AddScoped<UserApiService>();
 
 
 builder.Services.AddControllersWithViews(options =>

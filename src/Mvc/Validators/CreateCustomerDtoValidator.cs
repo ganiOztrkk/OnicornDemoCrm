@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Mvc.Models;
+using Mvc.Models.Customer;
 
 namespace Mvc.Validators
 {

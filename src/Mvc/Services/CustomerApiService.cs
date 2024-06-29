@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Mvc.Models;
+using Mvc.Models.Customer;
 using Mvc.Validators;
 
 namespace Mvc.Services;
@@ -14,9 +15,8 @@ public class CustomerApiService(
         var accessToken = httpContextAccessor.HttpContext!.Request.Cookies["AccessToken"];
         
         if (accessToken == null)
-        {
             return new ApiDataResponse<List<GetAllCustomerDto>> { Success = false, Message = "Tekrar giriş yapınız." };
-        }
+        
         try
         {
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7001/api/Customers/GetAll")

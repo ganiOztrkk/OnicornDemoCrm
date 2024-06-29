@@ -1,6 +1,5 @@
-namespace Mvc.Models;
-
-public class GetCustomerByIdDto
+namespace Mvc.Models.Customer;
+public class GetAllCustomerDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
