@@ -29,7 +29,7 @@ public class CreateTicketCommandHandler(
             return new ErrorResult( "Kullanıcı girişi yapın.");
         
         var roles = httpContext.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
-        if (!roles.Contains("admin") && !roles.Contains("salesperson") && !roles.Contains("coordinator") && !roles.Contains("manager")) 
+        if (!roles.Contains("admin") && !roles.Contains("salesperson") && !roles.Contains("coordinator") && !roles.Contains("manager") && !roles.Contains("support")) 
             return new ErrorResult("Yetkisiz erişim.");
 
         var createMessageValidator = new CreateTicketCommandRequestValidator();

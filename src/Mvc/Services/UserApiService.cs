@@ -48,7 +48,7 @@ public class UserApiService(
             return new ApiDataResponse<List<GetAllUserDto>> { Success = false, Message = "Kullanıcılar listelenirken hata: " + ex.Message };
         }
     }
-
+    
     public async Task<ApiResponse?> CreateAsync(CreateUserDto createUserDto)
     {
         var client = httpClientFactory.CreateClient();

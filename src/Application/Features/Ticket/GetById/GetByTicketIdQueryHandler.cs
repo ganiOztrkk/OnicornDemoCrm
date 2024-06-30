@@ -23,7 +23,7 @@ public class GetByTicketIdQueryHandler(
             return new ErrorDataResult<Domain.Entities.Ticket>( "Kullanıcı girişi yapın.");
         
         var roles = httpContext.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
-        if (!roles.Contains("admin") && !roles.Contains("salesperson") && !roles.Contains("coordinator") && !roles.Contains("manager")) 
+        if (!roles.Contains("admin") && !roles.Contains("salesperson") && !roles.Contains("coordinator") && !roles.Contains("manager") && !roles.Contains("support")) 
             return new ErrorDataResult<Domain.Entities.Ticket>("Yetkisiz erişim.");
         
         var getByTicketIdValidator = new GetByTicketIdQueryRequestValidator();

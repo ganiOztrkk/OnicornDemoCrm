@@ -46,6 +46,6 @@ public class DeleteSaleCommandHandler(
         sale.IsDeleted = true;
         repository.Update(sale);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return new SuccessResult("Müşteri silindi.");
+        return new SuccessResult("Satış silindi.");
     }
 }

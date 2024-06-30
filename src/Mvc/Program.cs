@@ -8,6 +8,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AuthApiService>();
 builder.Services.AddScoped<CustomerApiService>();
 builder.Services.AddScoped<UserApiService>();
+builder.Services.AddScoped<SaleApiService>();
+builder.Services.AddScoped<AnnouncementApiService>();
 
 
 builder.Services.AddControllersWithViews(options =>
@@ -34,7 +36,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 app.UseSession();

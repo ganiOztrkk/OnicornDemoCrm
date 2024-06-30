@@ -55,8 +55,8 @@ public class CustomerApiService(
             
         if (accessToken == null)
             return new ApiResponse { Success = false, Message = "Tekrar giriş yapınız." };
-        var createCystomerValidator = new CreateCustomerDtoValidator();
-        var validationResult = await createCystomerValidator.ValidateAsync(createCustomerDto);
+        var createCustomerValidator = new CreateCustomerDtoValidator();
+        var validationResult = await createCustomerValidator.ValidateAsync(createCustomerDto);
         if (!validationResult.IsValid)
         {
             var errors = validationResult.Errors.Select(x => x.ErrorMessage);
@@ -180,7 +180,7 @@ public class CustomerApiService(
         }
         catch (Exception ex)
         {
-            return new ApiResponse { Success = false, Message = "Müşteri kayıt sırasında hata: " + ex.Message };
+            return new ApiResponse { Success = false, Message = "Müşteri silme sırasında hata: " + ex.Message };
         }
     }
     

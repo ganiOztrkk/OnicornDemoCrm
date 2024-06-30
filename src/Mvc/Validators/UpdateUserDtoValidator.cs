@@ -19,5 +19,8 @@ public class UpdateUserDtoValidator : AbstractValidator<UpdateUserDto>
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Şifre boş olamaz.")
             .NotNull().WithMessage("Şifre boş olamaz.");
+        RuleFor(x => x.PhoneNumber)
+            .NotEmpty().WithMessage("Telefon boş olamaz.")
+            .NotNull().WithMessage("Telefon boş olamaz.");
     }
 }

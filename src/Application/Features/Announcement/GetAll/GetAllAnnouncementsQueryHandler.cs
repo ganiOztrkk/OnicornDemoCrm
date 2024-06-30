@@ -24,7 +24,7 @@ public class GetAllAnnouncementsQueryHandler(
             return new ErrorDataResult<List<GetAllAnnouncementsQueryResponse>>( "Kullanıcı girişi yapın.");
         
         var roles = httpContext.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
-        if (!roles.Contains("admin") && !roles.Contains("manager") && !roles.Contains("salesperson") && !roles.Contains("coordinator")) 
+        if (!roles.Contains("admin") && !roles.Contains("manager") && !roles.Contains("salesperson") && !roles.Contains("coordinator") && !roles.Contains("support")) 
             return new ErrorDataResult<List<GetAllAnnouncementsQueryResponse>>("Yetkisiz erişim.");
 
         var announcements = await repository.GetAllAsync();

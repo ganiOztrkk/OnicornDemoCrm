@@ -6,9 +6,6 @@ public class CreateSaleCommandRequestValidator : AbstractValidator<CreateSaleCom
 {
     public CreateSaleCommandRequestValidator()
     {
-        RuleFor(x => x.IsPaid)
-            .NotEmpty().WithMessage("Ödeme durumu boş olamaz.")
-            .NotNull().WithMessage("Ödeme durumu boş olamaz.");
         RuleFor(x =>x.Amount)
             .NotEmpty().WithMessage("Tutar boş olamaz.")
             .NotNull().WithMessage("Tutar boş olamaz.");

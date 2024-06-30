@@ -30,7 +30,7 @@ public static class CreateFirstUserMiddleware
         CreateUserIfNotExists(userManager, context, "admin@onicorn.com", "Gani", "Admin", "admin", "1");
         
         // manager
-        CreateUserIfNotExists(userManager, context, "maanger@onicorn.com", "Ayten", "Yönetici", "manager", "1");
+        CreateUserIfNotExists(userManager, context, "manager@onicorn.com", "Ayten", "Yönetici", "manager", "1");
         
         // support
         CreateUserIfNotExists(userManager, context, "support@onicorn.com", "Zehra", "Müşteri Destek", "support", "1");

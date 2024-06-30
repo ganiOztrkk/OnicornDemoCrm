@@ -3,7 +3,9 @@ using Domain.Entities;
 using Infastructure.Context;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Abstractions;
 
 namespace WebApi.Controllers;
@@ -11,7 +13,8 @@ namespace WebApi.Controllers;
 [AllowAnonymous]
 public class AuthController(
     IMediator mediator,
-    ApplicationDbContext context) : ApiController
+    ApplicationDbContext context,
+    RoleManager<AppRole> roleManager) : ApiController
 {
     [HttpPost]
     public async Task<IActionResult> Login(LoginCommandRequest request, CancellationToken cancellationToken)
@@ -47,5 +50,11 @@ public class AuthController(
     {
         var roles = context.AppUserRoles.ToList();
         return Ok(roles);
+    }
+    [HttpGet]
+    public IActionResult RoleNames()
+    {
+        var salespersonRole = roleManager.Roles.ToList();
+        return Ok(salespersonRole);
     }
 }

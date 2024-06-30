@@ -2,6 +2,7 @@ using Application.Features.User.Create;
 using Application.Features.User.Delete;
 using Application.Features.User.GetAll;
 using Application.Features.User.GetById;
+using Application.Features.User.GetSellers;
 using Application.Features.User.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -47,6 +48,14 @@ public class UsersController(
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
         var request = new GetAllUsersQueryRequest();
+        var result = await mediator.Send(request, cancellationToken);
+        return Ok(result);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetSellers(CancellationToken cancellationToken)
+    {
+        var request = new GetSellersQueryRequest();
         var result = await mediator.Send(request, cancellationToken);
         return Ok(result);
     }

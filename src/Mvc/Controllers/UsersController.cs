@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Mvc.Attributes;
 using Mvc.Models;
 using Mvc.Models.User;
 using Mvc.Services;
 
 namespace Mvc.Controllers;
 
+
 public class UsersController(UserApiService userApiService) : Controller
 {
+    [RoleAuthorize("admin")]
     public IActionResult Index()
     {
         return View();

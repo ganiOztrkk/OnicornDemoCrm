@@ -25,7 +25,7 @@ public class DeleteAnnouncementCommandHandler(
             return new ErrorResult( "Kullanıcı girişi yapın.");
         
         var roles = httpContext.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
-        if (!roles.Contains("admin") && !roles.Contains("manager")) 
+        if (!roles.Contains("admin") && !roles.Contains("manager") && !roles.Contains("coordinator")) 
             return new ErrorResult("Yetkisiz erişim.");
 
         var deleteAnnouncementValidator = new DeleteAnnouncementCommandRequestValidator();
