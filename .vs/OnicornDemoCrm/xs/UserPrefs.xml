@@ -1,0 +1,20 @@
+﻿<Properties StartupConfiguration="{9E6E7CA8-1C36-40E4-B130-AC3C2E776718}|https">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.src.Mvc PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="OnicornDemoCrm" expanded="True" selected="True">
+            <Node name="src" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

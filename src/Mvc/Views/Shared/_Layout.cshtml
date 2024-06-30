@@ -25,7 +25,7 @@
 <div class="wrapper">
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="/AdminLTE/index3.html" class="brand-link text-center">
-            <span class="brand-text font-weight-light">ONICORNE</span>
+            <span class="brand-text font-weight-light">ONICORN</span>
         </a>
         <!-- Sidebar -->
         <div class="sidebar">
@@ -61,7 +61,7 @@
                     @if (Context.Request.Cookies["AccessToken"] != null)
                     {
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/Home/Index" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>Ana Sayfa</p>
                             </a>
@@ -72,6 +72,18 @@
                                 <a href="/Announcements/Index" class="nav-link">
                                     <i class="nav-icon fas fa-microphone"></i>
                                     <p>Duyurular</p>
+                                </a>    
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Tasks/Index" class="nav-link">
+                                    <i class="nav-icon fas fa-tasks"></i>
+                                    <p>Görevler</p>
+                                </a>    
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Meetings/Index" class="nav-link">
+                                    <i class="nav-icon fas fa-meetup"></i>
+                                    <p>Toplantılar</p>
                                 </a>    
                             </li>
                         }

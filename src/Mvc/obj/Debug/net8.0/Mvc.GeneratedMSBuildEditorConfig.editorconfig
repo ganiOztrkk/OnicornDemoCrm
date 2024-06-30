@@ -38,8 +38,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3VzdG9tZXJzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Pages/Meetings/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTWVldGluZ3MvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Pages/Sales/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Pages/Tasks/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGFza3MvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/gani/Desktop/Github/OnicornDemoCrm/src/Mvc/Pages/Users/Index.cshtml]

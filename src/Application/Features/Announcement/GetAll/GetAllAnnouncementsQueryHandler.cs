@@ -30,6 +30,7 @@ public class GetAllAnnouncementsQueryHandler(
         var announcements = await repository.GetAllAsync();
         if (announcements is null)
             return new ErrorDataResult<List<GetAllAnnouncementsQueryResponse>>("Duyuru bulunamadı.");
+        announcements = announcements.Take(3).ToList();
         var response = mapper.Map<List<GetAllAnnouncementsQueryResponse>>(announcements);
         
         return new SuccessDataResult<List<GetAllAnnouncementsQueryResponse>>(response);

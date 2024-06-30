@@ -2,7 +2,124 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12 announcement text-center py-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-bullhorn"></i>
+                                Duyurular
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="callout callout-danger">
+                                <h5>I am a danger callout!</h5>
+                                <p>There is a problem that we need to fix. A wonderful serenity has taken possessi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 tasks text-center py-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="ion ion-clipboard mr-1"></i>
+                        Görevler
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <ul class="todo-list" data-widget="todo-list">
+                        <li>
+                            <div class="icheck-primary d-inline ml-2">
+                                <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                                <label for="todoCheck1"></label>
+                            </div>
+                            <span class="text">Onicorn Projeyi tamamla</span>
+                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 meetings text-center py-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="ion ion-clipboard mr-1"></i>
+                        Toplantılar
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <ul class="todo-list" data-widget="todo-list">
+                        <li>
+                            <div class="icheck-primary d-inline ml-2">
+                                <label for="todoCheck1"></label>
+                            </div>
+                            <span class="text">Onicorn Projeyi tamamla</span>
+                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 tickets text-center py-5">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <h1>Destek Talepleri</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">Talep Geçmişi</h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive mailbox-messages">
+                                    <table class="table table-hover table-striped">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="icheck-primary">
+                                                    <input type="checkbox" value="" id="check1">
+                                                    <label for="check1"></label>
+                                                </div>
+                                            </td>
+                                            <td class="mailbox-name">
+                                                <a href="#">Alexander Pierce</a>
+                                            </td>
+                                            <td class="mailbox-subject">
+                                                <b>AdminLTE 3.0 Issue</b> - Trying to find a solution to this problem...
+                                            </td>
+                                            <td class="mailbox-date">5 mins ago</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 </div>

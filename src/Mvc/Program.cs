@@ -10,6 +10,8 @@ builder.Services.AddScoped<CustomerApiService>();
 builder.Services.AddScoped<UserApiService>();
 builder.Services.AddScoped<SaleApiService>();
 builder.Services.AddScoped<AnnouncementApiService>();
+builder.Services.AddScoped<TaskApiService>();
+builder.Services.AddScoped<MeetingApiService>();
 
 
 builder.Services.AddControllersWithViews(options =>

@@ -91,12 +91,12 @@
         
         //duyuru delete işlemi
         $('#announcementTable tbody').on('click', '.deleteBtn', function () {
-            let announcementId = table.row($(this).parents('tr')).data().Id;
+            let id = table.row($(this).parents('tr')).data().Id;
             $.ajax({
                 url: '/Announcements/Delete/',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({ announcementId: announcementId }),
+                data: JSON.stringify({ id: id }),
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message);
