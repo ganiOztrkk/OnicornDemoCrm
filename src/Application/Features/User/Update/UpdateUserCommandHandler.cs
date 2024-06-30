@@ -4,6 +4,7 @@ using AutoMapper;
 using Core.ResultPattern;
 using Core.UnitOfWork;
 using Domain.Entities;
+using Infastructure.Context;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +18,8 @@ public class UpdateUserCommandHandler(
     IUnitOfWork unitOfWork,
     RoleManager<AppRole> roleManager,
     IHttpContextAccessor httpContextAccessor,
-    IMapper mapper
+    IMapper mapper,
+    ApplicationDbContext dbContext
     ) : IRequestHandler<UpdateUserCommandRequest, IResult>
 {
     public async Task<IResult> Handle(UpdateUserCommandRequest request, CancellationToken cancellationToken)
@@ -50,17 +52,27 @@ public class UpdateUserCommandHandler(
         {
             var duplicateUser = await userManager.FindByEmailAsync(request.Email);
             if (duplicateUser is not null)
-            {
                 return new ErrorResult("Aynı mail ile kayıtlı bir kullanıcı zaten mevcut.");
-            }
         }
+        mapper.Map(request, existingUser);
 
         var userRoles = await roleManager.Roles.Select(x => x.Name).ToListAsync(cancellationToken);
         if (!userRoles.Contains(request.RoleName))
             return new ErrorResult("Geçerli bir rol giriniz.");
         
+        var role = await roleManager.FindByNameAsync(request.RoleName);
         
-        mapper.Map(request, existingUser);
+        var existingUserRoles = await userManager.GetRolesAsync(existingUser);
+        var removeRolesResult = await userManager.RemoveFromRolesAsync(existingUser, existingUserRoles);
+        if (!removeRolesResult.Succeeded)
+            return new ErrorResult("Mevcut rol güncellenirken hata oluştu.");
+        
+        var appUserRole = new AppUserRole
+        {
+            UserId = existingUser.Id,
+            RoleId = role!.Id
+        };
+        await dbContext.AppUserRoles.AddAsync(appUserRole, cancellationToken);
         
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return new SuccessResult("Güncelleme başarılı.");

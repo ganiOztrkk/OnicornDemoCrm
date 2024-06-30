@@ -44,7 +44,13 @@
             paging: true,
             searching: true,
             info: true,
-            lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]]
+            lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]],
+            createdRow: function (row, data, dataIndex) {
+                if (data.IsDeleted) {
+                    $(row).css('background-color', 'red');
+                    $(row).css('color', 'white');
+                }
+            }
         });
 
         //tablo dinamik tekrar yükle
@@ -52,11 +58,11 @@
             table.ajax.reload();
         }
 
-        //modal - müşteri kaydet işlemi
+        //modal - kullanıcı kaydet işlemi
         $('#saveUserBtn').on('click', function () {
             let formData = $('#userForm').serialize();
             $.ajax({
-                url: '/Customers/Create/',
+                url: '/Users/Create/',
                 type: 'POST',
                 data: formData,
                 success: function (response) {
@@ -74,11 +80,11 @@
             });
         });
 
-        //modal - müşteri güncelle işlemi
+        //modal - kullanıcı güncelle işlemi
         $('#updateUserBtn').on('click', function () {
             let formData = $('#userForm').serialize();
             $.ajax({
-                url: '/Customers/Update/',
+                url: '/Users/Update/',
                 type: 'POST',
                 data: formData,
                 success: function (response) {
@@ -98,28 +104,23 @@
 
         //modal - update ekranı açma
         $('#userTable tbody').on('click', '.editBtn', function () {
-            let customerId = table.row($(this).parents('tr')).data().Id;
-            console.log(customerId);
+            let userId = table.row($(this).parents('tr')).data().Id;
             $.ajax({
-                url: '/Customers/GetById/',
+                url: '/Users/GetById/',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({ id: customerId }),
+                data: JSON.stringify({ id: userId }),
                 success: function (response) {
                     if (response.success) {
                         let data = JSON.parse(response.data);
                         $('#Id').val(data.Id);
-                        $('#Name').val(data.Name);
-                        $('#CompanyName').val(data.CompanyName);
-                        $('#Address').val(data.Address);
-                        $('#Phone').val(data.Phone);
+                        $('#Name').val(data.Name).prop('readonly', true);
+                        $('#Lastname').val(data.Lastname).prop('readonly', true);
                         $('#Email').val(data.Email);
-                        $('#ContactPerson').val(data.ContactPerson);
-                        $('#Sector').val(data.Sector);
-                        $('#ShoppingArea').val(data.ShoppingArea);
                         $('#saveUserBtn').hide();
                         $('#updateUserBtn').show();
-                        $('#userModalLabel').text("Müşteri Güncelle");
+                        $('#IsDeletedDiv').show();
+                        $('#userModalLabel').text("Kullanıcı Güncelle");
                         $('#userModal').modal('show');
                     } else {
                         toastr.error(response.message);
@@ -131,14 +132,14 @@
             });
         });
 
-        //customer delete işlemi
+        //kullanıcı delete işlemi
         $('#userTable tbody').on('click', '.deleteBtn', function () {
-            let customerId = table.row($(this).parents('tr')).data().Id;
+            let userId = table.row($(this).parents('tr')).data().Id;
             $.ajax({
-                url: '/Customers/Delete/',
+                url: '/Users/Delete/',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({ id: customerId }),
+                data: JSON.stringify({ id: userId }),
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message);
@@ -157,8 +158,11 @@
         $('#addUserBtn').on('click', function () {
             $('#userForm')[0].reset();
             $('#updateUserBtn').hide();
+            $('#IsDeletedDiv').hide();
             $('#saveUserBtn').show();
-            $('#userModalLabel').text("Müşteri Ekle");
+            $('#Name').prop('readonly', false);
+            $('#Lastname').prop('readonly', false);
+            $('#userModalLabel').text("Kullanıcı Ekle");
             $('#userModal').modal('show');
         });
         
@@ -192,12 +196,12 @@
         </tbody>
     </table>
 </div>
-<!-- Müşteri Ekleme Modalı -->
+<!-- Kullanıcı Ekleme Modalı -->
 <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="userModalLabel">Müşteri Ekle</h5>
+                <h5 class="modal-title" id="userModalLabel">Kullanıcı Ekle</h5>
                 <button id="closeCreateModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -210,32 +214,27 @@
                         <input type="text" class="form-control" id="Name" name="Name">
                     </div>
                     <div class="form-group">
-                        <label for="Lastname">Şirket Ad</label>
+                        <label for="Lastname">Soyad</label>
                         <input type="text" class="form-control" id="Lastname" name="Lastname">
-                    </div>
-                    <div class="form-group">
-                        <label for="Address">Adres</label>
-                        <input type="text" class="form-control" id="Address" name="Address">
-                    </div>
-                    <div class="form-group">
-                        <label for="Phone">Telefon</label>
-                        <input type="text" class="form-control" id="Phone" name="Phone">
                     </div>
                     <div class="form-group">
                         <label for="Email">Email</label>
                         <input type="email" class="form-control" id="Email" name="Email">
                     </div>
                     <div class="form-group">
-                        <label for="ContactPerson">İletişim Kişisi</label>
-                        <input type="text" class="form-control" id="ContactPerson" name="ContactPerson">
+                        <label for="RoleName">Rol</label>
+                        <input type="text" class="form-control" id="RoleName" name="RoleName">
                     </div>
                     <div class="form-group">
-                        <label for="Sector">Sektör</label>
-                        <input type="text" class="form-control" id="Sector" name="Sector">
+                        <label for="Password">Şifre</label>
+                        <input type="text" class="form-control" id="Password" name="Password">
                     </div>
-                    <div class="form-group">
-                        <label for="ShoppingArea">Toptan / Perakende</label>
-                        <input type="text" class="form-control" id="ShoppingArea" name="ShoppingArea">
+                    <div class="form-group" id="IsDeletedDiv" style="display: none;">
+                        <label for="IsDeleted">Kayıt Durumu</label>
+                        <select class="form-control" id="IsDeleted" name="IsDeleted">
+                            <option value="false">Aktif</option>
+                            <option value="true">Pasif</option>
+                        </select>
                     </div>
                     <button type="button" class="btn btn-primary" id="saveUserBtn">Kaydet</button>
                     <button type="button" class="btn btn-primary" id="updateUserBtn">Güncelle</button>

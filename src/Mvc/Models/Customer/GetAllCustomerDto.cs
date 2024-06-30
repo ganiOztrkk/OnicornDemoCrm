@@ -9,5 +9,6 @@ public class GetAllCustomerDto
     public string Email { get; set; } = string.Empty;
     public string ContactPerson { get; set; } = string.Empty;
     public string? Sector { get; set; }
-    public string? ShoppingArea { get; set; }  
+    public string? ShoppingArea { get; set; }
+    public bool IsDeleted { get; set; }
 }

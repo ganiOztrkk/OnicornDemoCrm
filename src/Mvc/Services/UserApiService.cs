@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Mvc.Models;
-using Mvc.Models.Customer;
 using Mvc.Models.User;
 using Mvc.Validators;
 
@@ -67,7 +66,7 @@ public class UserApiService(
 
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Customers/Create")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Users/Create")
             {
                 Content = JsonContent.Create(createUserDto),
                 Headers =
@@ -94,24 +93,24 @@ public class UserApiService(
         }
         catch (Exception ex)
         {
-            return new ApiResponse { Success = false, Message = "Müşteri kayıt sırasında hata: " + ex.Message };
+            return new ApiResponse { Success = false, Message = "Kullanıcı kayıt sırasında hata: " + ex.Message };
         }
     }
     
-    public async Task<ApiDataResponse<GetCustomerByIdDto>?> GetByIdAsync(Guid id)
+    public async Task<ApiDataResponse<GetUserByIdDto>?> GetByIdAsync(Guid userId)
     {
         var client = httpClientFactory.CreateClient();
         var accessToken = httpContextAccessor.HttpContext!.Request.Cookies["AccessToken"];
             
         if (accessToken == null)
-            return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = "Tekrar giriş yapınız." };
+            return new ApiDataResponse<GetUserByIdDto> { Success = false, Message = "Tekrar giriş yapınız." };
         
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Customers/GetById")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Users/GetById")
             {
                 Content = new StringContent(
-                    JsonSerializer.Serialize(new { id = id.ToString() }), 
+                    JsonSerializer.Serialize(new { userId = userId.ToString() }), 
                     System.Text.Encoding.UTF8, 
                     "application/json"),
                 Headers =
@@ -124,21 +123,21 @@ public class UserApiService(
 
             if (response.IsSuccessStatusCode)
             {
-                var responseBody = await response.Content.ReadFromJsonAsync<ApiDataResponse<GetCustomerByIdDto>>();
+                var responseBody = await response.Content.ReadFromJsonAsync<ApiDataResponse<GetUserByIdDto>>();
                 if (responseBody!.Success)
                     return responseBody;
                 else
-                    return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = responseBody.Message };
+                    return new ApiDataResponse<GetUserByIdDto> { Success = false, Message = responseBody.Message };
             }
             else
             {
                 var errorResponse = await response.Content.ReadAsStringAsync();
-                return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = "API Hatası: " + errorResponse };
+                return new ApiDataResponse<GetUserByIdDto> { Success = false, Message = "API Hatası: " + errorResponse };
             }
         }
         catch (Exception ex)
         {
-            return new ApiDataResponse<GetCustomerByIdDto> { Success = false, Message = "Müşteri getirme sırasında hata: " + ex.Message };
+            return new ApiDataResponse<GetUserByIdDto> { Success = false, Message = "Kullanıcı getirme sırasında hata: " + ex.Message };
         }
     }
     
@@ -152,10 +151,10 @@ public class UserApiService(
         
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Customers/Delete")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Users/Delete")
             {
                 Content = new StringContent(
-                    JsonSerializer.Serialize(new { id = id.ToString() }), 
+                    JsonSerializer.Serialize(new { userId = id.ToString() }), 
                     System.Text.Encoding.UTF8, 
                     "application/json"),
                 Headers =
@@ -182,19 +181,19 @@ public class UserApiService(
         }
         catch (Exception ex)
         {
-            return new ApiResponse { Success = false, Message = "Müşteri kayıt sırasında hata: " + ex.Message };
+            return new ApiResponse { Success = false, Message = "Kullanıcı silme sırasında hata: " + ex.Message };
         }
     }
     
-    public async Task<ApiResponse?> UpdateAsync(UpdateCustomerDto updateCustomerDto)
+    public async Task<ApiResponse?> UpdateAsync(UpdateUserDto updateUserDto)
     {
         var client = httpClientFactory.CreateClient();
         var accessToken = httpContextAccessor.HttpContext!.Request.Cookies["AccessToken"];
             
         if (accessToken == null)
             return new ApiResponse { Success = false, Message = "Tekrar giriş yapınız." };
-        var updateCustomerValidator = new UpdateCustomerDtoValidator();
-        var validationResult = await updateCustomerValidator.ValidateAsync(updateCustomerDto);
+        var updateUserValidator = new UpdateUserDtoValidator();
+        var validationResult = await updateUserValidator.ValidateAsync(updateUserDto);
         if (!validationResult.IsValid)
         {
             var errors = validationResult.Errors.Select(x => x.ErrorMessage);
@@ -203,9 +202,9 @@ public class UserApiService(
 
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Customers/Update")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Users/Update")
             {
-                Content = JsonContent.Create(updateCustomerDto),
+                Content = JsonContent.Create(updateUserDto),
                 Headers =
                 {
                     { "Authorization", $"Bearer {accessToken}" }

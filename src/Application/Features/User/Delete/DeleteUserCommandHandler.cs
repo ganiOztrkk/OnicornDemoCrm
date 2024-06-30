@@ -42,6 +42,8 @@ public class DeleteUserCommandHandler(
         var user = await userManager.FindByIdAsync(request.UserId.ToString());
         if (user is null)
             return new ErrorResult("Kullanıcı bulunamadı.");
+        if (user.IsDeleted)
+            return new ErrorResult("Kullanıcı zaten silindi.");
         user.IsDeleted = true;
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return new SuccessResult("Kullanıcı silindi.");

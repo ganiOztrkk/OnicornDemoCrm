@@ -47,7 +47,13 @@
             paging: true,
             searching: true,
             info: true,
-            lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]]
+            lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]],
+            createdRow: function (row, data, dataIndex) {
+                if (data.IsDeleted) {
+                    $(row).css('background-color', 'red');
+                    $(row).css('color', 'white');
+                }
+            }
         });
 
         //tablo dinamik tekrar yükle

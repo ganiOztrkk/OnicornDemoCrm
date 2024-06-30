@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Models;
-using Mvc.Models.Customer;
 using Mvc.Models.User;
 using Mvc.Services;
 
@@ -19,10 +18,10 @@ public class UsersController(UserApiService userApiService) : Controller
     {
         var apiResponse = await userApiService.GetAllAsync();
         var serializedData = Newtonsoft.Json.JsonConvert.SerializeObject(apiResponse!.Data);
-        if (apiResponse!.Success) 
+        if (apiResponse.Success) 
             return Json(new
             {
-                succcess= true,
+                success= true,
                 data= serializedData,
                 message = apiResponse.Message 
             });
@@ -51,7 +50,7 @@ public class UsersController(UserApiService userApiService) : Controller
     {
         var apiResponse = await userApiService.GetByIdAsync(request.Id);
         var serializedData = Newtonsoft.Json.JsonConvert.SerializeObject(apiResponse!.Data);
-        if (apiResponse!.Success) 
+        if (apiResponse.Success) 
             return Json(new
             {
                 success = true,
@@ -87,9 +86,9 @@ public class UsersController(UserApiService userApiService) : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> Update(UpdateCustomerDto updateCustomerDto)
+    public async Task<IActionResult> Update(UpdateUserDto updateUserDto)
     {
-        var apiResponse = await userApiService.UpdateAsync(updateCustomerDto);
+        var apiResponse = await userApiService.UpdateAsync(updateUserDto);
         if (apiResponse!.Success) 
             return Json(new { success = true, message = apiResponse.Message });
 
