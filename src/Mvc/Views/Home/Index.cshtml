@@ -1,6 +1,17 @@
-﻿@{
+﻿@model HomeDataDto
+@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .scrollable-tasks {
+        max-height: 175px;
+        overflow-y: auto;
+    }
+    .scrollable-meetings {
+        max-height: 175px;
+        overflow-y: auto;
+    }
+</style>
 
 <div class="container-fluid">
 
@@ -15,12 +26,26 @@
                                 Duyurular
                             </h3>
                         </div>
-                        <div class="card-body">
-                            <div class="callout callout-danger">
-                                <h5>I am a danger callout!</h5>
-                                <p>There is a problem that we need to fix. A wonderful serenity has taken possessi</p>
+                        @if (Model.Announcements == null || !Model.Announcements.Any())
+                        {
+                            <div class="card-body">
+                                <div class="callout callout-danger">
+                                    <h5>Görüntülenecek Duyuru Yok</h5>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model.Announcements!)
+                            {
+                                <div class="card-body">
+                                    <div class="callout callout-danger">
+                                        <h5>@item.Title</h5>
+                                        <p>@item.Content</p>
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -37,19 +62,32 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <ul class="todo-list" data-widget="todo-list">
+                    <ul class="todo-list scrollable-tasks" data-widget="todo-list">
+                        @if (Model.Tasks == null || !Model.Tasks.Any())
+                        {
+                        <li>
+                            <span class="text">Atanmış Görev Yok</span>
+                        </li>
+                        }
+                        else
+                        {
+                        @foreach (var item in Model.Tasks!)
+                        {
                         <li>
                             <div class="icheck-primary d-inline ml-2">
                                 <input type="checkbox" value="" name="todo1" id="todoCheck1">
                                 <label for="todoCheck1"></label>
                             </div>
-                            <span class="text">Onicorn Projeyi tamamla</span>
-                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                            <span class="text">@item.Title - @item.Description</span>
+                            <small class="badge badge-danger"><i class="far fa-clock"></i> Son Teslim @item.Deadline</small>
                         </li>
+                        }
+                        }
                     </ul>
                 </div>
             </div>
         </div>
+
 
 
         <div class="col-md-6 meetings text-center py-5">
@@ -61,14 +99,27 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <ul class="todo-list" data-widget="todo-list">
-                        <li>
-                            <div class="icheck-primary d-inline ml-2">
-                                <label for="todoCheck1"></label>
-                            </div>
-                            <span class="text">Onicorn Projeyi tamamla</span>
-                            <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                        </li>
+                    <ul class="todo-list scrollable-meetings" data-widget="todo-list">
+                        @if (Model.Meetings == null || !Model.Meetings.Any())
+                        {
+                            <li>
+                                <span class="text">Atanmış Toplantı Yok</span>
+                            </li>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model.Meetings!)
+                            {
+                                <li>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                                        <label for="todoCheck1"></label>
+                                    </div>
+                                    <span class="text">@item.Title - @item.Description</span>
+                                    <small class="badge badge-danger"><i class="far fa-clock"></i> Toplantı Günü @item.StartDate</small>
+                                </li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>
@@ -105,10 +156,10 @@
                                                 </div>
                                             </td>
                                             <td class="mailbox-name">
-                                                <a href="#">Alexander Pierce</a>
+                                                <a href="#">Gani Ozturk</a>
                                             </td>
                                             <td class="mailbox-subject">
-                                                <b>AdminLTE 3.0 Issue</b> - Trying to find a solution to this problem...
+                                                <b>Onicorn</b> - CRM Task
                                             </td>
                                             <td class="mailbox-date">5 mins ago</td>
                                         </tr>

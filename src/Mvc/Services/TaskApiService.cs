@@ -1,7 +1,6 @@
 using System.Text.Json;
 using Mvc.Models;
 using Mvc.Models.Task;
-using Mvc.Models.User;
 using Mvc.Validators;
 
 namespace Mvc.Services;
@@ -108,7 +107,7 @@ public class TaskApiService(
         
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Tasks/GetById")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Tasks/GetByUserId")
             {
                 Content = new StringContent(
                     JsonSerializer.Serialize(new { userId = userId.ToString() }), 
@@ -155,7 +154,7 @@ public class TaskApiService(
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Tasks/Delete")
             {
                 Content = new StringContent(
-                    JsonSerializer.Serialize(new { userId = id.ToString() }), 
+                    JsonSerializer.Serialize(new { taskId = id.ToString() }), 
                     System.Text.Encoding.UTF8, 
                     "application/json"),
                 Headers =

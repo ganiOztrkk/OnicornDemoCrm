@@ -107,7 +107,7 @@ public class MeetingApiService(
         
         try
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Meetings/GetById")
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Meetings/GetByUserId")
             {
                 Content = new StringContent(
                     JsonSerializer.Serialize(new { userId = userId.ToString() }), 
@@ -154,7 +154,7 @@ public class MeetingApiService(
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7001/api/Meetings/Delete")
             {
                 Content = new StringContent(
-                    JsonSerializer.Serialize(new { userId = id.ToString() }), 
+                    JsonSerializer.Serialize(new { meetingId = id.ToString() }), 
                     System.Text.Encoding.UTF8, 
                     "application/json"),
                 Headers =

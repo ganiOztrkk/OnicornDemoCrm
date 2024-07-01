@@ -43,6 +43,8 @@ public class AuthApiService(
                     {
                         var userRole = jsonToken.Claims.FirstOrDefault(c => c.Type == "roles")?.Value;
                         httpContextAccessor.HttpContext.Response.Cookies.Append("Role", userRole ?? "", cookieOptions);
+                        var userId = jsonToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+                        httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", userId ?? "", cookieOptions);
                     }
                     return responseBody;
                 }

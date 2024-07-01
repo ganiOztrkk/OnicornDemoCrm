@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Models;
 using Mvc.Models.Task;
-using Mvc.Models.User;
 using Mvc.Services;
 
 namespace Mvc.Controllers;
 
 public class TasksController(
-    TaskApiService taskApiService
+    TaskApiService taskApiService,
+    SaleApiService saleApiService
     ) : Controller
 {
     public IActionResult Index()
@@ -97,5 +97,26 @@ public class TasksController(
 
         ModelState.AddModelError(string.Empty, apiResponse.Message);
         return Json(new { success = false, message = apiResponse.Message });
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetSellers()
+    {
+        var apiResponse = await saleApiService.GetSellersAsync();
+        var serializedData = Newtonsoft.Json.JsonConvert.SerializeObject(apiResponse!.Data);
+        if (apiResponse.Success) 
+            return Json(new
+            {
+                success= true,
+                data= serializedData,
+                message = apiResponse.Message 
+            });
+
+        ModelState.AddModelError(string.Empty, apiResponse.Message);
+        return Json(new
+        {
+            success = false, 
+            message = apiResponse.Message
+        });
     }
 }
