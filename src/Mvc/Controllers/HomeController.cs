@@ -9,6 +9,7 @@ public class HomeController(
     AnnouncementApiService announcementApiService,
     MeetingApiService meetingApiService,
     TaskApiService taskApiService,
+    TicketApiService ticketApiService,
     IHttpContextAccessor httpContextAccessor
     ) : Controller
 {
@@ -18,11 +19,14 @@ public class HomeController(
         var announcements = await announcementApiService.GetAllAsync();
         var meetings = await meetingApiService.GetByIdAsync(Guid.Parse(userId!));
         var tasks = await taskApiService.GetByIdAsync(Guid.Parse(userId!));
+        var tickets = await ticketApiService.GetAllAsync();
         var homeDataModel = new HomeDataDto
         {
             Announcements = announcements!.Data,
             Meetings = meetings.Data,
-            Tasks = tasks.Data
+            Tasks = tasks.Data,
+            Tickets = tickets!.Data,
+            UserId = userId!
         };
         return View(homeDataModel);
     }

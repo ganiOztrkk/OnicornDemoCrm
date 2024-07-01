@@ -41,12 +41,8 @@ public class DeleteMeetingCommandHandler(
         var meeting = await repository.GetAsync(request.MeetingId);
         if (meeting is null)
             return new ErrorResult("Bu ID ile toplantı bulunamadı.");
-        
-        if (meeting is { IsDeleted: true })
-            return new ErrorResult("Toplantı zaten silindi.");
-
-        meeting.IsDeleted = true;
-        repository.Update(meeting);
+       
+        repository.Delete(meeting);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return new SuccessResult("Toplantı silindi.");
     }

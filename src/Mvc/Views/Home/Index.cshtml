@@ -1,124 +1,38 @@
 ﻿@model HomeDataDto
 @{
     ViewData["Title"] = "Home Page";
+    var currentUserId = @Model.UserId;
 }
 @section Scripts {
-<script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="/AdminLTE/plugins/jszip/jszip.min.js"></script>
-<script src="/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script>
+    <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/AdminLTE/plugins/jszip/jszip.min.js"></script>
+    <script src="/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
     $(document).ready(function () {
-        //dinamik tablo oluşturma
-        let table = $('#taskTable').DataTable({
-            ajax: {
-                url: '/Tasks/GetAll/',
-                dataSrc: function (json) {
-                    try {
-                        let data = JSON.parse(json.data);
-                        return data.length ? data : null;
-                    } catch (e) {
-                        return null;
-                    }
-                }
-            },
-            columns: [
-                { data: 'Title' },
-                { data: 'Description' },
-                {
-                    data: 'Deadline',
-                    render: function (data) {
-                        let date = new Date(data);
-                        return date.getFullYear() + '-' +
-                            ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-                            ('0' + date.getDate()).slice(-2);
-                    }
-                },
-                {
-                    data: null,
-                    className: "center",
-                    defaultContent: '<button class="btn btn-sm btn-danger deleteBtn"><i class="fas fa-trash"></i></button>'
-                }
-            ],
-            order: [[0, 'asc']],
-            paging: true,
-            searching: true,
-            info: true,
-            lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]],
-            language: {
-                emptyTable: "Atanan görev yok",
-                zeroRecords: "Atanan görev yok"
-            }
-        });
-
-        //tablo dinamik tekrar yükle
-        function reloadTable() {
-            table.ajax.reload();
-        }
-
-        function loadSalesPersons(selectedIds = []) {
+        //modal - support kaydet işlemi
+        $('#saveSupportBtn').on('click', function () {
+            let formData = $('#supportCreateForm').serialize();
             $.ajax({
-                url: '/Sales/GetSellers',
-                type: 'GET',
-                success: function (response) {
-                    try {
-                        let salesPersons = (typeof response.data === 'string') ? JSON.parse(response.data) : response.data;
-
-                        if (response.success) {
-                            let salesPersonCheckboxContainer = $('#SalesPersonCheckboxContainer');
-                            salesPersonCheckboxContainer.empty();
-
-                            $.each(salesPersons, function (index, user) {
-                                let checkbox = `<div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="${user.Id}" id="checkbox_${user.Id}" name="UserIds">
-                                                    <label class="form-check-label" for="checkbox_${user.Id}">
-                                                        ${user.Name} ${user.Lastname}
-                                                    </label>
-                                                </div>`;
-                                salesPersonCheckboxContainer.append(checkbox);
-                            });
-
-                            if (selectedIds.length > 0) {
-                                selectedIds.forEach(id => {
-                                    $(`#checkbox_${id}`).prop('checked', true);
-                                });
-                            }
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    } catch (error) {
-                        console.error('Response Parsing Error:', error);
-                        toastr.error('Satış elemanları yüklenirken bir hata oluştu');
-                    }
-                },
-                error: function () {
-                    toastr.error('Satış elemanları yüklenirken bir hata oluştu');
-                }
-            });
-        }
-
-        //modal - görev kaydet işlemi
-        $('#saveTaskBtn').on('click', function () {
-            let formData = $('#taskForm').serializeArray();
-
-            $.ajax({
-                url: '/Tasks/Create/',
+                url: '/Tickets/Create/',
                 type: 'POST',
-                data: $.param(formData),
+                data: formData,
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message);
-                        $('#taskModal').modal('hide');
-                        reloadTable();
+                        setTimeout(function() {
+                            window.location.href = '/Home/Index'; // Redirect to Home/Index
+                        }, 1000);
+                        $('#createSupportModal').modal('hide');
                     } else {
                         toastr.error(response.message);
                     }
@@ -129,42 +43,22 @@
             });
         });
 
-        //görev delete işlemi
-        $('#taskTable tbody').on('click', '.deleteBtn', function () {
-            let taskId = table.row($(this).parents('tr')).data().Id;
-            $.ajax({
-                url: '/Tasks/Delete/',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ id: taskId }),
-                success: function (response) {
-                    if (response.success) {
-                        toastr.success(response.message);
-                        reloadTable();
-                    } else {
-                        toastr.error(response.message);
-                    }
-                },
-                error: function () {
-                    toastr.error('Beklenmedik bir hata oluştu');
-                }
-            });
+        //ticket detail ekranı
+        $('#ticketTable tbody').on('click', '.detailBtn', function () {
+            let ticketId = $(this).data('id');
+            window.location.href = `/Tickets/Index/${ticketId}`;
         });
 
         //modal- create ekranı açma
-        $('#addTaskBtn').on('click', function () {
-            $('#taskForm')[0].reset();
-            $('#updateTaskBtn').hide();
-            $('#saveTaskBtn').show();
-            $('#taskModalLabel').text("Görev Ekle");
-            $('#taskModal').modal('show');
-            loadSalesPersons();
+        $('#createSupportBtn').on('click', function () {
+            $('#supportCreateForm')[0].reset();
+            $('#createSupportModal').modal('show');
         });
 
         //modal kapama
-        $('#closeCreateModal').on('click', function () {
-            $('#taskForm')[0].reset();
-            $('#taskModal').modal('hide');
+        $('#closeCreateSupportModal').on('click', function () {
+            $('#supportCreateForm')[0].reset();
+            $('#createSupportModal').modal('hide');
         });
     });
 </script>
@@ -283,7 +177,7 @@
                                         <label for="todoCheck1"></label>
                                     </div>
                                     <span class="text">@item.Title - @item.Description</span>
-                                    <small class="badge badge-danger"><i class="far fa-clock"></i> Toplantı Günü @item.StartDate</small>
+                                    <small class="badge badge-danger"><i class="far fa-clock"></i> Toplantı Günü @item.StartDate.ToShortDateString()</small>
                                 </li>
                             }
                         }
@@ -294,83 +188,73 @@
     </div>
 
     <div class="row">
-        <div class="col-12 tickets text-center py-5">
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12">
-                            <h1>Destek Talepleri</h1>
-                        </div>
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Talep Geçmişi</h3>
+                    <button id="createSupportBtn" class="btn btn-sm btn-primary detailBtn float-end">Destek Talep Oluştur <i class="fas fa-plus"></i></button>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive mailbox-messages">
+                        <table id="ticketTable" class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Konu</th>
+                                <th>Oluşturma Tarihi</th>
+                                <th>Talep Detay</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if (Model.Tickets != null || Model.Tickets!.Any())
+                            {
+                                @foreach (var item in Model.Tickets!)
+                                {
+                                    <tr>
+                                        <td class="mailbox-name">
+                                            <a>@item.Id</a>
+                                        </td>
+                                        <td class="mailbox-name">
+                                            <a>@item.Subject</a>
+                                        </td>
+                                        <td class="mailbox-subject">
+                                            <b>@item.CreateDate</b>
+                                        </td>
+                                        <td>
+                                            <button data-id="@item.Id" class="btn btn-sm btn-primary detailBtn">Detay <i class="fas fa-search"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </section>
-            <section class="content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">Talep Geçmişi</h3>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="table-responsive mailbox-messages">
-                                    <table class="table table-hover table-striped">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="icheck-primary">
-                                                    <input type="checkbox" value="" id="check1">
-                                                    <label for="check1"></label>
-                                                </div>
-                                            </td>
-                                            <td class="mailbox-name">
-                                                <a href="#">Gani Ozturk</a>
-                                            </td>
-                                            <td class="mailbox-subject">
-                                                <b>Onicorn</b> - CRM Task
-                                            </td>
-                                            <td class="mailbox-date">5 mins ago</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+<div class="modal fade" id="createSupportModal" tabindex="-1" role="dialog" aria-labelledby="createSupportModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="taskModalLabel">Görev Ekle</h5>
-                <button id="closeCreateModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="createSupportModalLabel">Destek Talebi Oluştur</h5>
+                <button id="closeCreateSupportModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="taskForm">
-                    <input type="hidden" class="form-control" id="Id" name="Id">
+                <form id="supportCreateForm">
                     <div class="form-group">
-                        <label for="Title">Görev Başlık</label>
-                        <input type="text" class="form-control" id="Title" name="Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="Description">Görev Açıklama</label>
-                        <input type="text" class="form-control" id="Description" name="Description">
+                        <label for="Subject">Konu</label>
+                        <input type="text" class="form-control" id="Subject" name="Subject">
                     </div>
                     <div class="form-group">
-                        <label for="Deadline">Görev Son Teslim Tarihi</label>
-                        <input type="date" class="form-control" id="Deadline" name="Deadline">
+                        <label for="Summary">Özet </label>
+                        <textarea class="form-control" type="text" name="Summary" id="Summary" rows="4"></textarea>
                     </div>
-                    <div id="SalesPersonCheckboxContainer" class="form-group">
-                        <!-- Satış elemanları checkboxları buraya yüklenecek -->
-                    </div>
-                    <button type="button" class="btn btn-primary" id="saveTaskBtn">Kaydet</button>
-                    <button type="button" class="btn btn-primary" id="updateTaskBtn">Güncelle</button>
+                    <button type="button" class="btn btn-primary" id="saveSupportBtn">Kaydet</button>
                 </form>
             </div>
         </div>

@@ -1,0 +1,102 @@
+@model List<Mvc.Models.Ticket.GetByTicketIdDto>
+@{
+    ViewBag.Title = "Tickets";
+    Layout = "_Layout";
+    var currentUserId = ViewBag.UserId;
+    var ticketId = Model.FirstOrDefault()?.TicketId;
+}
+
+<div class="container p-0">
+    <h1 class="h3 mb-3">Mesajlar</h1>
+    <div class="card mt-2">
+        <div class="row g-0">
+            <div class="col-12 col-lg-12 col-xl-12">
+                <div class="position-relative">
+                    <div class="chat-messages p-4">
+                        @foreach (var detail in Model)
+                        {
+                            <div class="pb-4 @(detail.AppUserId.ToString() == @currentUserId ? "chat-message-right" : "chat-message-left")">
+                                <div class="ms-2 me-2">
+                                    <img src="https://st5.depositphotos.com/81614282/67104/v/450/depositphotos_671048078-stock-illustration-bussines-icon-people-black-color.jpg" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                    <div class="text-muted small text-nowrap mt-2"></div>
+                                </div>
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3" style="width: 50%; min-width: 350px; max-width: 550px;">
+                                    <p>
+                                        @detail.CreateDate.ToString("dd/MM/yyyy HH:mm")
+                                    </p>
+                                    <p style="word-break: break-word;">
+                                        @detail.Content
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="flex-grow-0 py-3 px-4 border-top">
+                    <div class="input-group">
+                        <input id="messageContent" type="text" class="form-control input" placeholder="Mesajınızı yazın">
+                        <button id="sendMessageBtn" class="btn btn-primary">Gönder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/jszip/jszip.min.js"></script>
+<script src="/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Mesaj Gönderme
+            $('#sendMessageBtn').on('click', function () {
+                let content = $('#messageContent').val();
+                let ticketId = `@ticketId`;
+                let appUserId = `@currentUserId`;
+                console.log(ticketId);
+                console.log(appUserId);
+                console.log(content);
+
+                if (content.trim() === "") {
+                    toastr.error('Mesaj boş olamaz.');
+                    return;
+                }
+
+                let data = {
+                    Content: content,
+                    TicketId: ticketId,
+                    AppUserId: appUserId
+                };
+                
+                $.ajax({
+                    url: '/Tickets/CreateDetail/',
+                    type: 'POST',
+                    data: data,
+                    success: function (response) {
+                        if (response.success) {
+                            $('#messageContent').val('');
+                            location.reload();
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Beklenmedik bir hata oluştu');
+                    }
+                });
+            });
+        });
+    </script>
+}

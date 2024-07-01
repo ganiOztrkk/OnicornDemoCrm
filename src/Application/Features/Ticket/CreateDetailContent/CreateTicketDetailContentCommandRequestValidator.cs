@@ -7,11 +7,11 @@ public class CreateTicketDetailContentCommandRequestValidator : AbstractValidato
     public CreateTicketDetailContentCommandRequestValidator()
     {
         RuleFor(x => x.TicketId)
-            .NotEmpty().WithMessage("Mesaj ID boş olamaz")
-            .NotNull().WithMessage("Mesaj ID boş olamaz.");
+            .NotEmpty().WithMessage("Ticket ID boş olamaz")
+            .NotNull().WithMessage("Ticket ID boş olamaz.");
         RuleFor(x => x.AppUserId)
-            .NotEmpty().WithMessage("Mesaj ID boş olamaz")
-            .NotNull().WithMessage("Mesaj ID boş olamaz.");
+            .NotEmpty().WithMessage("User ID boş olamaz")
+            .NotNull().WithMessage("User ID boş olamaz.");
         RuleFor(x => x.Content)
             .NotEmpty().WithMessage("İçerik boş olamaz")
             .NotNull().WithMessage("İçerik boş olamaz.")

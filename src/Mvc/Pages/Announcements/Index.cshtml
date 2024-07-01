@@ -53,12 +53,6 @@
             lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]],
             language: {
                 emptyTable: "Kayıtlı duyuru yok"
-            },
-            createdRow: function (row, data) {
-                if (data.IsDeleted) {
-                    $(row).css('background-color', 'red');
-                    $(row).css('color', 'white');
-                }
             }
         });
 

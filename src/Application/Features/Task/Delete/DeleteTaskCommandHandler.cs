@@ -40,12 +40,8 @@ namespace Application.Features.Task.Delete
             var task = await repository.GetAsync(request.TaskId);
             if (task is null)
                 return new ErrorResult("Bu ID ile görev bulunamadı.");
-
-            if (task is { IsDeleted: true })
-                return new ErrorResult("Görev zaten silindi.");
-
-            task.IsDeleted = true;
-            repository.Update(task);
+            
+            repository.Delete(task);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return new SuccessResult("Görev silindi.");
         }

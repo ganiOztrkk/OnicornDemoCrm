@@ -6,9 +6,17 @@ using Mvc.Services;
 namespace Mvc.Controllers;
 
 public class TicketsController(
-    TicketApiService ticketApiService
+    TicketApiService ticketApiService,
+    IHttpContextAccessor httpContextAccessor
     ) : Controller
 {
+    public async Task<IActionResult> Index(Guid id)
+    {
+        var ticketDetails = await ticketApiService.GetDetailsAsync(id); 
+        ViewBag.UserId = httpContextAccessor.HttpContext!.Request.Cookies["UserId"]!;
+        return View(ticketDetails.Data);
+    }
+    
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -33,7 +41,7 @@ public class TicketsController(
     [HttpPost]
     public async Task<IActionResult> GetDetail([FromBody] GetByIdRequest request)
     {
-        var apiResponse = await ticketApiService.GetByIdAsync(request.Id);
+        var apiResponse = await ticketApiService.GetDetailsAsync(request.Id);
         var serializedData = Newtonsoft.Json.JsonConvert.SerializeObject(apiResponse.Data);
         if (apiResponse.Success) 
             return Json(new
