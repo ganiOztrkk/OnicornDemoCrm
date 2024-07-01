@@ -2,6 +2,173 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+@section Scripts {
+<script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/AdminLTE/plugins/jszip/jszip.min.js"></script>
+<script src="/AdminLTE/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/AdminLTE/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //dinamik tablo oluşturma
+        let table = $('#taskTable').DataTable({
+            ajax: {
+                url: '/Tasks/GetAll/',
+                dataSrc: function (json) {
+                    try {
+                        let data = JSON.parse(json.data);
+                        return data.length ? data : null;
+                    } catch (e) {
+                        return null;
+                    }
+                }
+            },
+            columns: [
+                { data: 'Title' },
+                { data: 'Description' },
+                {
+                    data: 'Deadline',
+                    render: function (data) {
+                        let date = new Date(data);
+                        return date.getFullYear() + '-' +
+                            ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                            ('0' + date.getDate()).slice(-2);
+                    }
+                },
+                {
+                    data: null,
+                    className: "center",
+                    defaultContent: '<button class="btn btn-sm btn-danger deleteBtn"><i class="fas fa-trash"></i></button>'
+                }
+            ],
+            order: [[0, 'asc']],
+            paging: true,
+            searching: true,
+            info: true,
+            lengthMenu: [[20, 50, 100, -1], [20, 50, 100, "Tümü"]],
+            language: {
+                emptyTable: "Atanan görev yok",
+                zeroRecords: "Atanan görev yok"
+            }
+        });
+
+        //tablo dinamik tekrar yükle
+        function reloadTable() {
+            table.ajax.reload();
+        }
+
+        function loadSalesPersons(selectedIds = []) {
+            $.ajax({
+                url: '/Sales/GetSellers',
+                type: 'GET',
+                success: function (response) {
+                    try {
+                        let salesPersons = (typeof response.data === 'string') ? JSON.parse(response.data) : response.data;
+
+                        if (response.success) {
+                            let salesPersonCheckboxContainer = $('#SalesPersonCheckboxContainer');
+                            salesPersonCheckboxContainer.empty();
+
+                            $.each(salesPersons, function (index, user) {
+                                let checkbox = `<div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="${user.Id}" id="checkbox_${user.Id}" name="UserIds">
+                                                    <label class="form-check-label" for="checkbox_${user.Id}">
+                                                        ${user.Name} ${user.Lastname}
+                                                    </label>
+                                                </div>`;
+                                salesPersonCheckboxContainer.append(checkbox);
+                            });
+
+                            if (selectedIds.length > 0) {
+                                selectedIds.forEach(id => {
+                                    $(`#checkbox_${id}`).prop('checked', true);
+                                });
+                            }
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    } catch (error) {
+                        console.error('Response Parsing Error:', error);
+                        toastr.error('Satış elemanları yüklenirken bir hata oluştu');
+                    }
+                },
+                error: function () {
+                    toastr.error('Satış elemanları yüklenirken bir hata oluştu');
+                }
+            });
+        }
+
+        //modal - görev kaydet işlemi
+        $('#saveTaskBtn').on('click', function () {
+            let formData = $('#taskForm').serializeArray();
+
+            $.ajax({
+                url: '/Tasks/Create/',
+                type: 'POST',
+                data: $.param(formData),
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $('#taskModal').modal('hide');
+                        reloadTable();
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error('Beklenmedik bir hata oluştu');
+                }
+            });
+        });
+
+        //görev delete işlemi
+        $('#taskTable tbody').on('click', '.deleteBtn', function () {
+            let taskId = table.row($(this).parents('tr')).data().Id;
+            $.ajax({
+                url: '/Tasks/Delete/',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: taskId }),
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        reloadTable();
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error('Beklenmedik bir hata oluştu');
+                }
+            });
+        });
+
+        //modal- create ekranı açma
+        $('#addTaskBtn').on('click', function () {
+            $('#taskForm')[0].reset();
+            $('#updateTaskBtn').hide();
+            $('#saveTaskBtn').show();
+            $('#taskModalLabel').text("Görev Ekle");
+            $('#taskModal').modal('show');
+            loadSalesPersons();
+        });
+
+        //modal kapama
+        $('#closeCreateModal').on('click', function () {
+            $('#taskForm')[0].reset();
+            $('#taskModal').modal('hide');
+        });
+    });
+</script>
+}
 <style>
     .scrollable-tasks {
         max-height: 175px;
@@ -65,23 +232,23 @@
                     <ul class="todo-list scrollable-tasks" data-widget="todo-list">
                         @if (Model.Tasks == null || !Model.Tasks.Any())
                         {
-                        <li>
-                            <span class="text">Atanmış Görev Yok</span>
-                        </li>
+                            <li>
+                                <span class="text">Atanmış Görev Yok</span>
+                            </li>
                         }
                         else
                         {
-                        @foreach (var item in Model.Tasks!)
-                        {
-                        <li>
-                            <div class="icheck-primary d-inline ml-2">
-                                <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                                <label for="todoCheck1"></label>
-                            </div>
-                            <span class="text">@item.Title - @item.Description</span>
-                            <small class="badge badge-danger"><i class="far fa-clock"></i> Son Teslim @item.Deadline</small>
-                        </li>
-                        }
+                            @foreach (var item in Model.Tasks!)
+                            {
+                                <li>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                                        <label for="todoCheck1"></label>
+                                    </div>
+                                    <span class="text">@item.Title - @item.Description</span>
+                                    <small class="badge badge-danger"><i class="far fa-clock"></i> Son Teslim @item.Deadline</small>
+                                </li>
+                            }
                         }
                     </ul>
                 </div>
@@ -171,6 +338,41 @@
                     </div>
                 </div>
             </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="taskModalLabel">Görev Ekle</h5>
+                <button id="closeCreateModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <input type="hidden" class="form-control" id="Id" name="Id">
+                    <div class="form-group">
+                        <label for="Title">Görev Başlık</label>
+                        <input type="text" class="form-control" id="Title" name="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Görev Açıklama</label>
+                        <input type="text" class="form-control" id="Description" name="Description">
+                    </div>
+                    <div class="form-group">
+                        <label for="Deadline">Görev Son Teslim Tarihi</label>
+                        <input type="date" class="form-control" id="Deadline" name="Deadline">
+                    </div>
+                    <div id="SalesPersonCheckboxContainer" class="form-group">
+                        <!-- Satış elemanları checkboxları buraya yüklenecek -->
+                    </div>
+                    <button type="button" class="btn btn-primary" id="saveTaskBtn">Kaydet</button>
+                    <button type="button" class="btn btn-primary" id="updateTaskBtn">Güncelle</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
